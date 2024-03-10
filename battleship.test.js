@@ -102,3 +102,23 @@ describe('Testing placement', () => {
     }).toThrow('Incorrect placement');
   });
 });
+
+describe('Testing attacks', () => {
+  test('Miss works', () => {
+    expect(battleship.gameboard.recieveAttack([1, 1])).toBe(0); //miss
+  });
+  test('Hit works', () => {
+    expect(battleship.gameboard.recieveAttack([1, 0])).toBe(1); //hit
+  });
+  test('Out of bounds is handled', () => {
+    expect(() => {
+      battleship.gameboard.recieveAttack([-1, 0]);
+    }).toThrow('Incorrect attack');
+  });
+  test('Prevent multiple attacks on same location', () => {
+    battleship.gameboard.recieveAttack([2, 5]);
+    expect(() => {
+      battleship.gameboard.recieveAttack([2, 5]);
+    }).toThrow('Incorrect attack');
+  });
+});

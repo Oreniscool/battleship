@@ -1,20 +1,22 @@
 function Ship(length) {
   let hits = 0;
   let sunk = false;
-  const hit = () => {
-    hits += 1;
-  };
-  const isSunk = () => {
-    if (hits == length) {
-      sunk = true;
+  function hit() {
+    this.hits += 1;
+    this.isSunk();
+  }
+  function isSunk() {
+    if (this.hits == this.length) {
+      this.sunk = true;
     }
-    return sunk;
-  };
-  return { hits, hit, isSunk, length };
+  }
+  return { hits, sunk, hit, isSunk, length };
 }
 
 function Gameboard() {
   let grid = [];
+  let attacks = [];
+  //Place logic begins
   const place = (placement) => {
     if (checkPlacement(placement)) throw new TypeError('Incorrect placement');
     const newShip = Ship(placement.length);
@@ -84,7 +86,33 @@ function Gameboard() {
     if (item[0] == value[0] && item[1] == value[1]) return true;
     return false;
   };
-  return { place };
+  //Place logic ends
+  //Attack logic begins
+  const recieveAttack = (position) => {
+    let flag = 0;
+    if (checkAttack(position)) throw new TypeError('Incorrect attack');
+    for (let i = 0; i < grid.length; i++) {
+      if (
+        grid[i].occupied.some((occPos) =>
+          shallowEqualityCheck(occPos, position)
+        )
+      ) {
+        grid[i].ship.hit();
+        grid[i].ship.isSunk();
+        flag = 1;
+        break;
+      }
+    }
+    attacks.push(position);
+    return flag;
+  };
+  const checkAttack = (pos) => {
+    if (pos[0] < 0 || pos[0] >= 10 || pos[1] < 0 || pos[0] >= 10) return true;
+    if (attacks.some((attack) => shallowEqualityCheck(attack, pos)))
+      return true;
+    return false;
+  };
+  return { place, recieveAttack };
 }
 
 const gameboard = Gameboard();
