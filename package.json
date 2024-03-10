@@ -1,0 +1,26 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "A battleship game",
+  "main": "battleship.js",
+  "scripts": {
+    "test": "jest",
+    "watch": "jest --watch battleship.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oreniscool/battleship.git"
+  },
+  "keywords": [
+    "Battleship"
+  ],
+  "author": "Oreniscool",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Oreniscool/battleship/issues"
+  },
+  "homepage": "https://github.com/Oreniscool/battleship#readme",
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
+}
