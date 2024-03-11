@@ -1,0 +1,33 @@
+html,
+body {
+  margin: 0px;
+  height: 100vh;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  width: 80%;
+  height: fit-content;
+  display: flex;
+  gap: 50px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: fit-content;
+  height: 100%;
+  column-gap: 0;
+  row-gap: 0;
+}
+.grid-item {
+  width: 30px;
+  height: 30px;
+  border: 1px gray solid;
+  cursor: pointer;
+}

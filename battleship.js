@@ -112,9 +112,99 @@ function Gameboard() {
       return true;
     return false;
   };
-  return { place, recieveAttack };
+  //Attack logic ends
+  //Check status starts
+  const checkStatus = () => {
+    //True: lost
+    let flag = true;
+    for (let i = 0; i < grid.length; i++) {
+      if (!grid[i].ship.sunk) flag = false;
+    }
+    return flag;
+  };
+  //Getters
+  const getGrid = () => {
+    return grid;
+  };
+  const getAttacks = () => {
+    return attacks;
+  };
+  return { place, recieveAttack, getGrid, getAttacks, checkStatus };
 }
 
-const gameboard = Gameboard();
+function Player() {
+  const gameboard = Gameboard();
+  const getGameboard = () => {
+    return gameboard;
+  };
+  function placeShip(placement) {
+    try {
+      gameboard.place(placement);
+      console.log(gameboard.getGrid());
+    } catch (err) {
+      throw new TypeError(err);
+    }
+    return `${placement.type} was placed at ${placement.position[0]},${placement.position[1]}`;
+  }
+  function recieveAttack(position) {
+    let flag;
+    try {
+      flag = gameboard.recieveAttack(position);
+    } catch (err) {
+      throw new TypeError('Invalid attack');
+    }
+    return flag;
+  }
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  function randomPlaceShip(placement) {
+    let flag = 0;
+    while (flag == 0) {
+      const position = [getRandomInt(0, 10), getRandomInt(0, 10)];
+      const alignment = getRandomInt(0, 2) ? 'vertical' : 'horizontal';
+      placement.alignment = alignment;
+      placement.position = position;
+      try {
+        gameboard.place(placement);
+      } catch (err) {
+        continue;
+      }
+      flag = 1;
+    }
+  }
+  function randomRecieveAttack() {
+    let flag = 0;
+    let position;
+    while (flag == 0) {
+      position = [getRandomInt(0, 10), getRandomInt(0, 10)];
+      try {
+        gameboard.recieveAttack(position);
+      } catch (err) {
+        continue;
+      }
+      flag = 1;
+    }
+    return position;
+  }
 
-module.exports = { gameboard };
+  return {
+    getGameboard,
+    placeShip,
+    recieveAttack,
+    randomPlaceShip,
+    randomRecieveAttack,
+  };
+}
+
+//Testing stuff
+// const gameboard = Gameboard();
+// const gameboard2 = Gameboard();
+//module.exports = { gameboard, gameboard2, player1 };
+
+const player1 = Player();
+const player2 = Player();
+
+export { player1, player2 };
