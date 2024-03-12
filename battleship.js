@@ -163,7 +163,7 @@ function Player() {
   function randomPlaceShip(placement) {
     let flag = 0;
     while (flag == 0) {
-      const position = [getRandomInt(0, 10), getRandomInt(0, 10)];
+      const position = [getRandomInt(0, 9), getRandomInt(0, 9)];
       const alignment = getRandomInt(0, 2) ? 'vertical' : 'horizontal';
       placement.alignment = alignment;
       placement.position = position;
@@ -177,17 +177,18 @@ function Player() {
   }
   function randomRecieveAttack() {
     let flag = 0;
+    let hitIndicator;
     let position;
     while (flag == 0) {
-      position = [getRandomInt(0, 10), getRandomInt(0, 10)];
+      position = [getRandomInt(0, 9), getRandomInt(0, 9)];
       try {
-        gameboard.recieveAttack(position);
+        hitIndicator = gameboard.recieveAttack(position);
       } catch (err) {
         continue;
       }
       flag = 1;
     }
-    return position;
+    return { position, flag: hitIndicator };
   }
 
   return {
