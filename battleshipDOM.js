@@ -28,35 +28,65 @@ const grid = (function () {
   const getTestBoardSetup = () => {
     const grid1 = document.querySelector('.player1');
     //placing ships
-    player1.placeShip({
-      length: 5,
-      position: [0, 0],
-      alignment: 'horizontal',
-    });
-    try {
-      player1.placeShip({
-        length: 2,
-        position: [0, 0],
-        alignment: 'horizontal',
-      });
-    } catch (err) {
-      console.error(err);
-    }
-    player1.placeShip({
-      length: 4,
-      position: [0, 2],
-      alignment: 'vertical',
-    });
+    // player1.placeShip({
+    //   length: 5,
+    //   position: [0, 0],
+    //   alignment: 'horizontal',
+    // });
+    // try {
+    //   player1.placeShip({
+    //     length: 2,
+    //     position: [0, 0],
+    //     alignment: 'horizontal',
+    //   });
+    // } catch (err) {
+    //   console.error(err);
+    // }
+    // player1.placeShip({
+    //   length: 4,
+    //   position: [0, 2],
+    //   alignment: 'vertical',
+    // });
 
-    player2.placeShip({
+    // player2.placeShip({
+    //   length: 5,
+    //   position: [0, 0],
+    //   alignment: 'horizontal',
+    // });
+    // player2.placeShip({
+    //   length: 4,
+    //   position: [0, 2],
+    //   alignment: 'vertical',
+    // });
+    player1.randomPlaceShip({
       length: 5,
-      position: [0, 0],
-      alignment: 'horizontal',
     });
-    player2.placeShip({
+    player1.randomPlaceShip({
       length: 4,
-      position: [0, 2],
-      alignment: 'vertical',
+    });
+    player1.randomPlaceShip({
+      length: 3,
+    });
+    player1.randomPlaceShip({
+      length: 3,
+    });
+    player1.randomPlaceShip({
+      length: 2,
+    });
+    player2.randomPlaceShip({
+      length: 5,
+    });
+    player2.randomPlaceShip({
+      length: 4,
+    });
+    player2.randomPlaceShip({
+      length: 3,
+    });
+    player2.randomPlaceShip({
+      length: 3,
+    });
+    player2.randomPlaceShip({
+      length: 2,
     });
 
     const grid = player1.getGameboard().getGrid();
@@ -128,7 +158,7 @@ const rounds = (function () {
         playerTurn(i);
       } else if (i % 2 == 1) {
         header.textContent = 'Computer turn';
-        setTimeout(() => computerTurn(i), 3000);
+        setTimeout(() => computerTurn(i), 1000);
       }
     };
     chooseRounds(i);

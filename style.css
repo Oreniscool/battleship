@@ -34,3 +34,13 @@ body {
   cursor: pointer;
   text-align: center;
 }
+.grid-item:hover {
+  background-color: rgba(153, 153, 153, 0.418);
+}
+
+.indicators {
+  width: 70%;
+  height: 30px;
+  display: flex;
+  justify-content: space-evenly;
+}
